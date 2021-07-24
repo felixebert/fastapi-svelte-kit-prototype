@@ -4,7 +4,7 @@
 </script>
 
 <header class="pure-menu pure-menu-horizontal">
-	<a href={base} class="pure-menu-heading">Climate trees</a>
+	<a href={`${base}/`} class="pure-menu-heading brand">Climate trees</a>
 	<Nav />
 </header>
 

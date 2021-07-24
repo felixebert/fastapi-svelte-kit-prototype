@@ -4,11 +4,11 @@
 
 	const menuItems = [
 		{
-			path: `${base}cart`,
+			path: `${base}/cart`,
 			label: 'Cart'
 		},
 		{
-			path: '${base}login',
+			path: `${base}/login`,
 			label: 'Login'
 		}
 	];

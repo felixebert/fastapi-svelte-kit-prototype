@@ -35,7 +35,8 @@
 
 	.pure-menu-active > .pure-menu-link,
 	.pure-menu-link:hover,
-	.pure-menu-link:focus {
+	.pure-menu-link:focus,
+	.pure-menu-selected > .pure-menu-link {
 		background-color: var(--secondary-color);
 	}
 </style>
