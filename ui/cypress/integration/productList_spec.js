@@ -28,7 +28,7 @@ describe('productList', () => {
 			cy.visit('/');
 			cy.get('.add-to-cart').first().children('button').click();
 			cy.get('.add-to-cart').last().children('button').click();
-			cy.get('nav .badge').should('have.text', '2');
+			cy.get('nav .cart-link').should('have.text', 'Cart (2)');
 		});
 
 		it('should increase quantity on plus click', () => {

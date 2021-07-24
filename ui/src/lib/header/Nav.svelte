@@ -5,20 +5,20 @@
 
 	let totalQuantityInCart;
 	$: totalQuantityInCart = $cartStore.reduce((accumulator, p) => accumulator + p.quantity, 0);
+
+	const cartPath = `${base}/cart`;
+	const loginPath = `${base}/login`;
 </script>
 
 <nav>
 	<ul class="pure-menu-list">
-		<li class="pure-menu-item" class:pure-menu-selected={$page.path === `${base}/cart`}>
-			<a href={`${base}/cart`} class="pure-menu-link">
-				Cart
-				{#if totalQuantityInCart > 0}
-					<span class="badge">{totalQuantityInCart}</span>
-				{/if}
+		<li class="pure-menu-item" class:pure-menu-selected={$page.path === cartPath}>
+			<a href={cartPath} class="pure-menu-link cart-link">
+				Cart {#if totalQuantityInCart > 0}({totalQuantityInCart}){/if}
 			</a>
 		</li>
-		<li class="pure-menu-item" class:pure-menu-selected={$page.path === `${base}/login`}>
-			<a href={`${base}/login`} class="pure-menu-link">Login</a>
+		<li class="pure-menu-item" class:pure-menu-selected={$page.path === loginPath}>
+			<a href={loginPath} class="pure-menu-link">Login</a>
 		</li>
 	</ul>
 </nav>
@@ -27,11 +27,5 @@
 	nav {
 		flex: 1 1 auto;
 		text-align: right;
-	}
-
-	.badge {
-		background: var(--secondary-color);
-		padding: 3px 8px;
-		border-radius: 50%;
 	}
 </style>
