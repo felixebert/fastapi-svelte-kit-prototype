@@ -21,7 +21,7 @@
 		justify-content: center;
 		align-items: center;
 		text-align: center;
-		color: white;
+		color: #fff;
 		height: 33vh;
 		background: rgba(0, 0, 0, 0.2);
 		margin-bottom: 2rem;
@@ -38,6 +38,6 @@
 
 	.banner-head {
 		font-weight: 500;
-		text-shadow: 0 1px 1px black;
+		text-shadow: 0 1px 1px #000;
 	}
 </style>

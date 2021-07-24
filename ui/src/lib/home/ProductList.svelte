@@ -4,7 +4,7 @@
 	export let products: Product[];
 </script>
 
-<div class="pure-g">
+<div class="pure-g product-list">
 	{#each products as product}
 		<div class="product pure-u-1 pure-u-md-1-3">
 			<div class="product-header">
@@ -33,8 +33,13 @@
 </div>
 
 <style lang="postcss">
+	.product-list {
+		max-width: var(--content-width);
+		margin: 0 auto;
+	}
+
 	.product {
-		border: 1px solid #ddd;
+		border: 1px solid var(--secondary-color);
 		margin: 0 0.5rem 2rem;
 	}
 
@@ -43,8 +48,8 @@
 		flex-direction: column;
 		justify-content: center;
 		padding: 3rem 0;
-		background: #519251;
-		color: #fff;
+		background: var(--secondary-color);
+		color: var(--on-secondary-color);
 		text-align: center;
 
 		h2 {
@@ -74,7 +79,7 @@
 			width: 62px;
 			margin-bottom: 0;
 			&:invalid {
-				border: 1px solid red;
+				border: 1px solid var(--error-color);
 			}
 		}
 
@@ -84,7 +89,7 @@
 
 		.product-quantity {
 			flex: 0 1 auto;
-			padding-right: 1rem;
+			padding-right: 0.5rem;
 		}
 	}
 </style>
