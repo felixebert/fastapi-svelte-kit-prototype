@@ -1,8 +1,9 @@
 <script context="module" lang="ts">
 	import type { Product } from '$lib/home/Product';
+	import { API_BASE_URL } from '../lib/Env';
 
 	export async function load({ fetch }) {
-		const url = `http://localhost:8000/products`;
+		const url = `${API_BASE_URL}/products`;
 		const res = await fetch(url);
 		const products: Product[] = await res.json();
 
