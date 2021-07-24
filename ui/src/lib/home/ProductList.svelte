@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Product } from '$lib/home/Product';
+	import AddToCartForm from '$lib/home/AddToCartForm.svelte';
 
 	export let products: Product[];
 </script>
@@ -19,15 +20,7 @@
 				{product.description}
 			</div>
 
-			<form class="product-actions pure-form">
-				<div class="product-quantity">
-					<label for="quantity-{product.id}">Quantity</label>
-					<input type="number" id="quantity-{product.id}" value="1" min="1" max="20" required />
-				</div>
-				<div class="button-container">
-					<button type="submit" class="button-choose pure-button">Add to cart</button>
-				</div>
-			</form>
+			<AddToCartForm id={product.id} />
 		</div>
 	{/each}
 </div>
@@ -67,29 +60,5 @@
 
 	.product-description {
 		padding: 2rem 1rem;
-	}
-
-	.product-actions {
-		margin-bottom: 1rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		input {
-			width: 62px;
-			margin-bottom: 0;
-			&:invalid {
-				border: 1px solid var(--error-color);
-			}
-		}
-
-		.button-container {
-			align-self: flex-end;
-		}
-
-		.product-quantity {
-			flex: 0 1 auto;
-			padding-right: 0.5rem;
-		}
 	}
 </style>
