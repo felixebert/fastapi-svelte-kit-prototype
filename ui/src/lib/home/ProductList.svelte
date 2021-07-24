@@ -5,7 +5,7 @@
 	export let products: Product[];
 </script>
 
-<div class="pure-g product-list">
+<main class="pure-g product-list content-container">
 	{#each products as product}
 		<div class="product pure-u-1 pure-u-md-1-3">
 			<div class="product-header">
@@ -23,17 +23,12 @@
 			<AddToCartForm id={product.id} />
 		</div>
 	{/each}
-</div>
+</main>
 
 <style lang="postcss">
-	.product-list {
-		max-width: var(--content-width);
-		margin: 0 auto;
-	}
-
 	.product {
 		border: 1px solid var(--secondary-color);
-		margin: 0 0.5rem 2rem;
+		margin-bottom: 1rem;
 	}
 
 	.product-header {

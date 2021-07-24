@@ -24,7 +24,7 @@
 		color: #fff;
 		height: 33vh;
 		background: rgba(0, 0, 0, 0.2);
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 	}
 
 	.banner img {

@@ -18,6 +18,12 @@
 		--on-secondary-color: var(--on-primary-color);
 	}
 
+	.content-container {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
 	.pure-button {
 		background-color: var(--secondary-color);
 		color: var(--on-secondary-color);
