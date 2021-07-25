@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Product } from '$lib/home/Product';
+	import { formatPrice } from '../util/money';
 	import AddToCartForm from '$lib/home/AddToCartForm.svelte';
 
 	export let products: Product[];
@@ -12,7 +13,7 @@
 				<h2>{product.title}</h2>
 
 				<span class="product-price">
-					{product.price}€
+					{formatPrice(product.price)}
 				</span>
 			</div>
 

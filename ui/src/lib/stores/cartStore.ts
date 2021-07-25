@@ -3,19 +3,21 @@ import { writable } from 'svelte/store';
 
 const STORAGE_KEY = 'cart';
 
-type CartProduct = {
+type CartStoreProduct = {
 	id: number;
 	quantity: number;
 };
 
-type Cart = [CartProduct?];
+export type CartStore = [CartStoreProduct?];
 
 const storedValueRaw = browser ? window.sessionStorage.getItem(STORAGE_KEY) : null;
-const { subscribe, set, update } = writable<Cart>(storedValueRaw ? JSON.parse(storedValueRaw) : []);
+const { subscribe, set, update } = writable<CartStore>(
+	storedValueRaw ? JSON.parse(storedValueRaw) : []
+);
 
 export default {
 	subscribe,
-	set: (value: Cart) => {
+	set: (value: CartStore) => {
 		window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(value));
 		return set(value);
 	},
