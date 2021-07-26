@@ -52,6 +52,8 @@ def get_products() -> List[Product]:
     return list(map(lambda p: Product(**p), db['products']))
 
 
+# order request from user only contains product id and quantity per item
+# enrich all order items to contain more product details, a total price etc.
 def convert_order_items(items: List[OrderItemRequest]) -> List[OrderItem]:
     products = get_products()
 
