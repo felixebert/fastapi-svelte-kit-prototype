@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
+	import { browser } from '$app/env';
 	import Alert from '../lib/util/Alert.svelte';
 	import Spinner from '../lib/util/Spinner.svelte';
 	import { onMount } from 'svelte';
@@ -30,7 +31,8 @@
 	let currentStatus = Status.LOADING;
 
 	function redirectToTarget(fallback?: string) {
-		const target = TARGETS[$page.query.get('target')] || fallback;
+		const query = browser ? new URLSearchParams(location.search) : $page.query;
+		const target = query.has('target') ? TARGETS[query.get('target')] : fallback;
 		if (target) {
 			goto(target);
 		}
