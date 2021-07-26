@@ -53,7 +53,7 @@
 				const token = await res.json();
 				tokenStore.set(token);
 				currentStatus = Status.SUCCESS;
-				redirectToTarget(DEFAULT_TARGET);
+				redirectToTarget(TARGETS[DEFAULT_TARGET]);
 			} else if (res.status === 401) {
 				currentStatus = Status.INVALID_CREDENTIALS;
 			} else {
