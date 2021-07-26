@@ -1,16 +1,17 @@
+import warnings
 from datetime import timedelta, datetime
 from .config import Settings
 from passlib.context import CryptContext
 from jose import jwt
 
 settings = Settings()
-SECRET_KEY = settings.SECRET_KEY
+SECRET_KEY = settings.SECRET_KEY if settings.SECRET_KEY is not None else "UNSECURE"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-if SECRET_KEY is None:
-    raise EnvironmentError("no secret key provided")
+if settings.SECRET_KEY is None:
+    warnings.warn("UNSAFE: no secret key provided!")
 
 
 def verify_password(plain_password, hashed_password):
