@@ -3,7 +3,7 @@
     {
       "id": 1,
       "username": "johndoe@example.com",
-      "hashed_password": "HASH"
+      "password": "PLAINTEXT_PW"
     }
   ],
   "products": [

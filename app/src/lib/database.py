@@ -3,6 +3,7 @@ from functools import reduce
 from typing import Optional, List
 from .schemas import User, Product, Order, OrderRequest, OrderItem, OrderItemRequest
 from .config import settings
+from .crypt import get_password_hash
 from os.path import dirname, abspath, join, exists
 from decimal import Decimal, ROUND_HALF_UP
 import json
@@ -40,7 +41,11 @@ def get_user(username: str) -> Optional[UserInDB]:
     if len(matching_user) > 1:
         raise RuntimeError("multiple matching users")
 
-    return UserInDB(**matching_user[0])
+    user = matching_user[0]
+    if 'password' in user:
+        return UserInDB(**user, hashed_password=get_password_hash(user['password']))
+    else:
+        return UserInDB(**user)
 
 
 def get_products() -> List[Product]:
