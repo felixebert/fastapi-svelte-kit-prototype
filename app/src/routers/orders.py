@@ -10,5 +10,6 @@ router = APIRouter(
 
 @router.post("")
 async def add_order(current_user: User = Depends(get_current_user)):
+    print("got order")
     print(current_user)
     return "OK"

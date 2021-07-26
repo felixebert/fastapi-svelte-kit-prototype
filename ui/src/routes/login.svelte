@@ -112,13 +112,13 @@
 	</form>
 
 	{#if currentStatus === Status.INVALID_CREDENTIALS}
-		<Alert message="Invalid username or password." />
+		<Alert>Invalid username or password.</Alert>
 	{:else if currentStatus === Status.ERROR}
-		<Alert message="Connection error or service interruption. Please try it again later." />
+		<Alert>Connection error or service interruption. Please try it again later.</Alert>
 	{:else if currentStatus === Status.SUCCESS}
-		<Alert message="Login successful." type="success" />
+		<Alert type="success">Login successful.</Alert>
 	{:else if currentStatus === Status.LOGGED_IN}
-		<Alert message="You are already logged in." type="success" />
+		<Alert type="success">You are already logged in.</Alert>
 	{:else if currentStatus === Status.LOADING}
 		<Spinner />
 	{/if}

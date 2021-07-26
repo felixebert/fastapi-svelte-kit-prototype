@@ -34,7 +34,7 @@
 {#if currentStatus === Status.LOADING}
 	<Spinner />
 {:else if currentStatus === Status.ERROR}
-	<Alert message="Connection error. Please try it again" />
+	<Alert>Connection error. Please try it again</Alert>
 {:else}
 	<slot {cart} />
 {/if}

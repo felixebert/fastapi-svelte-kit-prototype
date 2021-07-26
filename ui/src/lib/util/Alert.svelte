@@ -1,9 +1,8 @@
 <script lang="ts">
-	export let message: string;
 	export let type: 'error' | 'success' = 'error';
 </script>
 
-<div class="alert alert-{type}" role="alert">{message}</div>
+<div class="alert alert-{type}" role="alert"><slot /></div>
 
 <style lang="postcss">
 	.alert {

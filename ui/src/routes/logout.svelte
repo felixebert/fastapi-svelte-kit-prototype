@@ -19,6 +19,6 @@
 	{#if $tokenStore}
 		<Spinner />
 	{:else}
-		<Alert message="Logout successful." type="success" />
+		<Alert type="success">Logout successful.</Alert>
 	{/if}
 </div>
