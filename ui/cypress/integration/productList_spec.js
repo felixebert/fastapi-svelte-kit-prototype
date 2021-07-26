@@ -19,27 +19,27 @@ describe('productList', () => {
 		});
 
 		it('should show current quantity in button', () => {
-			cy.visit('/');
+			cy.visit('/').get('#svelte-announcer');
 			cy.get('.add-to-cart button').first().click();
 			cy.get('.current-quantity').should('have.text', '1');
 		});
 
 		it('should show total cart quantity in nav', () => {
-			cy.visit('/');
+			cy.visit('/').get('#svelte-announcer');
 			cy.get('.add-to-cart').first().children('button').click();
 			cy.get('.add-to-cart').last().children('button').click();
 			cy.get('nav .cart-link').should('have.text', 'Cart (2)');
 		});
 
 		it('should increase quantity on plus click', () => {
-			cy.visit('/');
+			cy.visit('/').get('#svelte-announcer');
 			cy.get('.add-to-cart').first().children('button').click();
 			cy.get('.add-to-cart').first().find('button').last().click();
 			cy.get('.current-quantity').should('have.text', '2');
 		});
 
 		it('should decrease quantity on minus click', () => {
-			cy.visit('/');
+			cy.visit('/').get('#svelte-announcer');
 			cy.get('.add-to-cart').first().children('button').click();
 			cy.get('.add-to-cart').first().find('button').first().click();
 			cy.get('.current-quantity').should('not.exist');
