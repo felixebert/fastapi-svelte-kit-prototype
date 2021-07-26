@@ -16,7 +16,12 @@
 	};
 
 	$: updateQuantity = (qty: number) => {
-		cartEntry.quantity = qty;
+		if (qty <= 0) {
+			cart.splice(cart.indexOf(cartEntry), 1);
+			cartEntry = null;
+		} else {
+			cartEntry.quantity = qty;
+		}
 		cartStore.set(cart);
 	};
 
