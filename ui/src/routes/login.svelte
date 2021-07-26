@@ -40,22 +40,27 @@
 		e.preventDefault();
 		currentStatus = Status.LOADING;
 
-		const res = await fetch(`${API_BASE_URL}/token`, {
-			method: 'POST',
-			body: new URLSearchParams({
-				username,
-				password
-			})
-		});
+		try {
+			const res = await fetch(`${API_BASE_URL}/token`, {
+				method: 'POST',
+				body: new URLSearchParams({
+					username,
+					password
+				})
+			});
 
-		if (res.ok) {
-			const token = await res.json();
-			tokenStore.set(token);
-			currentStatus = Status.SUCCESS;
-			redirectToTarget(DEFAULT_TARGET);
-		} else if (res.status === 401) {
-			currentStatus = Status.INVALID_CREDENTIALS;
-		} else {
+			if (res.ok) {
+				const token = await res.json();
+				tokenStore.set(token);
+				currentStatus = Status.SUCCESS;
+				redirectToTarget(DEFAULT_TARGET);
+			} else if (res.status === 401) {
+				currentStatus = Status.INVALID_CREDENTIALS;
+			} else {
+				currentStatus = Status.ERROR;
+			}
+		} catch (e) {
+			console.error('error on login', e);
 			currentStatus = Status.ERROR;
 		}
 	}
@@ -64,17 +69,22 @@
 		if (!$tokenStore) {
 			currentStatus = Status.IDLE;
 		} else {
-			const res = await fetch(`${API_BASE_URL}/users/me`, {
-				headers: {
-					Authorization: `Bearer ${$tokenStore.access_token}`
+			try {
+				const res = await fetch(`${API_BASE_URL}/users/me`, {
+					headers: {
+						Authorization: `Bearer ${$tokenStore.access_token}`
+					}
+				});
+				if (res.ok) {
+					currentStatus = Status.LOGGED_IN;
+					redirectToTarget();
+				} else {
+					tokenStore.set(null);
+					currentStatus = Status.IDLE;
 				}
-			});
-			if (res.ok) {
-				currentStatus = Status.LOGGED_IN;
-				redirectToTarget();
-			} else {
-				tokenStore.set(null);
-				currentStatus = Status.IDLE;
+			} catch (e) {
+				console.error('error fetching users me', e);
+				currentStatus = Status.ERROR;
 			}
 		}
 	});

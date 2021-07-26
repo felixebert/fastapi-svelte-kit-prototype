@@ -4,21 +4,27 @@
 
 	export async function load({ fetch }) {
 		const url = `${API_BASE_URL}/products`;
-		const res = await fetch(url);
-		const products: Product[] = await res.json();
+		try {
+			const res = await fetch(url);
+			const products: Product[] = await res.json();
 
-		if (res.ok) {
+			if (res.ok) {
+				return {
+					props: {
+						products
+					}
+				};
+			}
+
 			return {
-				props: {
-					products
-				}
+				status: res.status,
+				error: new Error(`Could not load ${url}`)
+			};
+		} catch (e) {
+			return {
+				error: new Error(`Could not load ${url}`)
 			};
 		}
-
-		return {
-			status: res.status,
-			error: new Error(`Could not load ${url}`)
-		};
 	}
 </script>
 

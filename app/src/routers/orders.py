@@ -1,6 +1,7 @@
-from fastapi import Depends, APIRouter
-from ..lib.schemas import User
+from fastapi import Depends, APIRouter, Body
+from ..lib.schemas import User, OrderRequest
 from ..lib.dependencies import get_current_user
+from ..lib.database import add_order
 
 router = APIRouter(
     prefix="/orders",
@@ -9,7 +10,6 @@ router = APIRouter(
 
 
 @router.post("")
-async def add_order(current_user: User = Depends(get_current_user)):
-    print("got order")
-    print(current_user)
-    return "OK"
+async def create_order(order_request: OrderRequest = Body(..., embed=True), current_user: User = Depends(get_current_user)):
+    order = add_order(order_request, current_user)
+    return order

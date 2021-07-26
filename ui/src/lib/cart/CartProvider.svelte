@@ -19,13 +19,18 @@
 	let cart: Cart;
 
 	onMount(async () => {
-		const res = await fetch(`${API_BASE_URL}/products`);
-		if (res.ok) {
-			const products: Product[] = await res.json();
-			const cartStoreProducts = $cartStore as CartStore;
-			cart = convertToCart(cartStoreProducts, products);
-			currentStatus = Status.DONE;
-		} else {
+		try {
+			const res = await fetch(`${API_BASE_URL}/products`);
+			if (res.ok) {
+				const products: Product[] = await res.json();
+				const cartStoreProducts = $cartStore as CartStore;
+				cart = convertToCart(cartStoreProducts, products);
+				currentStatus = Status.DONE;
+			} else {
+				currentStatus = Status.ERROR;
+			}
+		} catch (e) {
+			console.error('error providing cart', e);
 			currentStatus = Status.ERROR;
 		}
 	});

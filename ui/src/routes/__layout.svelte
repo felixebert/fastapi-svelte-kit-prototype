@@ -21,7 +21,7 @@
 
 	.content-container {
 		max-width: var(--content-width);
-		margin: 0 auto;
+		margin: 0 auto 2rem;
 		padding: 0 1rem;
 
 		h1 {

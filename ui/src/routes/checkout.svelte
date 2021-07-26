@@ -5,7 +5,6 @@
 	import CartProvider from '$lib/cart/CartProvider.svelte';
 	import { formatPrice } from '$lib/util/money';
 	import { API_BASE_URL } from '$lib/Env';
-	import type { Cart } from '$lib/cart/Cart';
 	import tokenStore from '$lib/stores/tokenStore';
 	import cartStore from '$lib/stores/cartStore';
 	import Alert from '../lib/util/Alert.svelte';
@@ -27,38 +26,45 @@
 	let orderNumber;
 	let currentStatus = Status.IDLE;
 
-	async function placeOrder(e: Event, cart: Cart) {
+	async function placeOrder(e: Event) {
 		e.preventDefault();
 		currentStatus = Status.LOADING;
 
-		const res = await fetch(`${API_BASE_URL}/orders`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${$tokenStore.access_token}`
-			},
-			body: JSON.stringify({
-				shippingAddress: {
-					fullname,
-					addressLine1,
-					addressLine2,
-					zip,
-					city,
-					country
+		try {
+			const res = await fetch(`${API_BASE_URL}/orders`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${$tokenStore.access_token}`
 				},
-				products: cart.products
-			})
-		});
+				body: JSON.stringify({
+					order_request: {
+						shipping_address: {
+							fullname,
+							address_line1: addressLine1,
+							address_line2: addressLine2,
+							zip,
+							city,
+							country
+						},
+						items: $cartStore
+					}
+				})
+			});
 
-		if (res.ok) {
-			const order = await res.json();
-			orderNumber = order.label;
-			cartStore.set([]);
-			currentStatus = Status.SUCCESS;
-		} else {
-			if (res.status === 401) {
-				goto(`${base}/login?target=checkout`);
+			if (res.ok) {
+				const order = await res.json();
+				orderNumber = order.label;
+				cartStore.set([]);
+				currentStatus = Status.SUCCESS;
+			} else {
+				if (res.status === 401) {
+					goto(`${base}/login?target=checkout`);
+				}
+				currentStatus = Status.ERROR;
 			}
+		} catch (e) {
+			console.error('send order error', e);
 			currentStatus = Status.ERROR;
 		}
 	}
@@ -85,7 +91,7 @@
 	{:else if $cartStore.length > 0}
 		<RequireAuth>
 			<CartProvider let:cart>
-				<form class="pure-form pure-form-stacked" on:submit={(e) => placeOrder(e, cart)}>
+				<form class="pure-form pure-form-stacked" on:submit={placeOrder}>
 					<fieldset>
 						<legend>Shipping & Invoice address</legend>
 						<p>
@@ -115,7 +121,6 @@
 								type="text"
 								id="addressLine2"
 								autocomplete="shipping address-line2"
-								required
 								bind:value={addressLine2}
 							/>
 						</p>
@@ -171,7 +176,17 @@
 						>Complete order
 					</button>
 				</form>
+
+				{#if currentStatus === Status.ERROR}
+					<Alert>Could not complete order. Please try again later.</Alert>
+				{/if}
 			</CartProvider>
 		</RequireAuth>
 	{/if}
 </div>
+
+<style>
+	form {
+		margin-bottom: 2rem;
+	}
+</style>
