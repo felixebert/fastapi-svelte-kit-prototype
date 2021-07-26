@@ -2,15 +2,26 @@
 from functools import reduce
 from typing import Optional, List
 from .schemas import User, Product, Order, OrderRequest, OrderItem, OrderItemRequest
-from os.path import dirname, abspath, join
+from .config import settings
+from os.path import dirname, abspath, join, exists
 from decimal import Decimal, ROUND_HALF_UP
 import json
 
+db_file = join(dirname(abspath(__file__)), "..", "db", "database.json")
+
 
 def load_datasets():
-    print("load fixed datasets from database.json")
-    with open(join(dirname(abspath(__file__)), "..", "db", "database.json"), "r") as fp:
-        return json.load(fp)
+    if settings.DATABASE is not None:
+        return json.loads(settings.DATABASE)
+    elif exists(db_file):
+        print("load fixed datasets from database.json")
+        with open(db_file, "r") as fp:
+            return json.load(fp)
+    else:
+        return {
+            "users": [],
+            "products": []
+        }
 
 
 class UserInDB(User):

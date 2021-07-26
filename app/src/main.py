@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import products, orders, token, users
-from .lib.config import Settings
+from .lib.config import settings
 
-settings = Settings()
 app = FastAPI()
 
 if settings.CORS_ALLOW_ORIGIN is not None:

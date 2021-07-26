@@ -1,10 +1,9 @@
 import warnings
 from datetime import timedelta, datetime
-from .config import Settings
+from .config import settings
 from passlib.context import CryptContext
 from jose import jwt
 
-settings = Settings()
 SECRET_KEY = settings.SECRET_KEY if settings.SECRET_KEY is not None else "UNSECURE"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
