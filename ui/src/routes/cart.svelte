@@ -28,7 +28,4 @@
 </div>
 
 <style lang="postcss">
-	h1 {
-		margin: 3rem 0;
-	}
 </style>

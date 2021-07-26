@@ -5,7 +5,7 @@
 <Header />
 <slot />
 
-<style global>
+<style global lang="postcss">
 	@import 'purecss/build/pure.css';
 
 	:root {
@@ -22,6 +22,10 @@
 		max-width: var(--content-width);
 		margin: 0 auto;
 		padding: 0 1rem;
+
+		h1 {
+			margin: 3rem 0;
+		}
 	}
 
 	.pure-button {

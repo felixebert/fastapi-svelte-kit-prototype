@@ -7,6 +7,11 @@ name = "pypi"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 pydantic = "*"
+passlib = "*"
+python-dotenv = "*"
+python-jose = "*"
+python-multipart = "*"
+bcrypt = "*"
 
 [dev-packages]
 

@@ -1,6 +1,4 @@
 *.iml
 .idea
 .DS_Store
-node_modules
-.svelte-kit
-__pycache__
+.env
