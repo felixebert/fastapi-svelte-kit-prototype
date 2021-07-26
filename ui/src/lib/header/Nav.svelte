@@ -2,12 +2,14 @@
 	import { page } from '$app/stores';
 	import { base } from '$app/paths';
 	import cartStore from '$lib/stores/cartStore';
+	import tokenStore from '$lib/stores/tokenStore';
 
 	let totalQuantityInCart;
 	$: totalQuantityInCart = $cartStore.reduce((accumulator, p) => accumulator + p.quantity, 0);
 
 	const cartPath = `${base}/cart`;
 	const loginPath = `${base}/login`;
+	const logoutPath = `${base}/logout`;
 </script>
 
 <nav>
@@ -18,7 +20,11 @@
 			</a>
 		</li>
 		<li class="pure-menu-item" class:pure-menu-selected={$page.path === loginPath}>
-			<a href={loginPath} class="pure-menu-link">Login</a>
+			{#if $tokenStore}
+				<a href={logoutPath} class="pure-menu-link">Logout</a>
+			{:else}
+				<a href={loginPath} class="pure-menu-link">Login</a>
+			{/if}
 		</li>
 	</ul>
 </nav>

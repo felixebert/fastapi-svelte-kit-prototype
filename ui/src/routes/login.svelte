@@ -1,5 +1,8 @@
 <script lang="ts">
+	import tokenStore from '$lib/stores/tokenStore';
 	import { API_BASE_URL } from '../lib/Env';
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import Alert from '../lib/util/Alert.svelte';
 	import Spinner from '../lib/util/Spinner.svelte';
 
@@ -7,7 +10,8 @@
 		IDLE,
 		LOADING,
 		INVALID_CREDENTIALS,
-		ERROR
+		ERROR,
+		SUCCESS
 	}
 
 	let username;
@@ -27,10 +31,10 @@
 		});
 
 		if (res.ok) {
-			// store
-			currentStatus = Status.IDLE;
-			let message = await res.json();
-			console.log(message);
+			const token = await res.json();
+			tokenStore.set(token);
+			currentStatus = Status.SUCCESS;
+			goto(`${base}/`);
 		} else if (res.status === 401) {
 			currentStatus = Status.INVALID_CREDENTIALS;
 		} else {
@@ -66,7 +70,8 @@
 		<button
 			type="submit"
 			class="pure-button pure-button-primary"
-			disabled={currentStatus === Status.LOADING}>Sign in</button
+			disabled={currentStatus === Status.LOADING || currentStatus === Status.SUCCESS}
+			>Sign in</button
 		>
 	</form>
 
@@ -74,6 +79,8 @@
 		<Alert message="Invalid username or password." />
 	{:else if currentStatus === Status.ERROR}
 		<Alert message="Connection error or service interruption. Please try it again later." />
+	{:else if currentStatus === Status.SUCCESS}
+		<Alert message="Login successful." type="success" />
 	{:else if currentStatus === Status.LOADING}
 		<Spinner />
 	{/if}

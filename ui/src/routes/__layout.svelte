@@ -14,6 +14,7 @@
 		--primary-color: #fff;
 		--secondary-color: #c8e6c9;
 		--error-color: #ff0000;
+		--success-color: #00ad0a;
 		--on-primary-color: #000;
 		--on-secondary-color: var(--on-primary-color);
 	}
