@@ -25,7 +25,7 @@
 
 			<form action={`${base}/login`} method="GET">
 				<input type="hidden" name="target" value="checkout" />
-				<button>Order now</button>
+				<button type="submit" class="pure-button pure-button-primary">Order now</button>
 			</form>
 		</CartProvider>
 	{:else if browser}
