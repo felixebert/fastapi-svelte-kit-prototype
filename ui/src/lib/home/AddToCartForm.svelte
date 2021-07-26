@@ -33,7 +33,7 @@
 	{#if !cartEntry || cartEntry.quantity <= 0}
 		<button type="button" class="pure-button" on:click={addToCart}>Add to cart</button>
 	{:else}
-		<div class="pure-button">
+		<div class="quantity-button">
 			<button type="button" on:click={decQuantity}>-</button>
 			<span class="current-quantity">{cartEntry.quantity}</span>
 			<button type="button" on:click={incQuantity} disabled={cartEntry.quantity >= 20}>+</button>
@@ -45,5 +45,18 @@
 	.add-to-cart {
 		margin-bottom: 1rem;
 		text-align: center;
+	}
+
+	.quantity-button {
+		background: var(--secondary-color);
+		color: var(--on-secondary-color);
+		display: inline-block;
+
+		button {
+			padding: 0.5em 1em;
+			border: none;
+			background: transparent;
+			cursor: pointer;
+		}
 	}
 </style>
